@@ -1,0 +1,25 @@
+const CACHE_NAME = 'app-quantri-v1';
+const urlsToCache = [
+  './index.html',
+  './style.css',
+  './script.js'
+];
+// Cài đặt bộ nhớ đệm
+self.addEventListener('install', event => {
+  event.waitUntil(
+    caches.open(CACHE_NAME)
+      .then(cache => {
+        return cache.addAll(urlsToCache);
+      })
+  );
+});
+// Chặn truy xuất mạng để load nhanh hơn
+self.addEventListener('fetch', event => {
+  event.respondWith(
+    caches.match(event.request)
+      .then(response => {
+        // Nếu file có trong cache thì lấy ra dùng luôn, không thì tải từ mạng
+        return response || fetch(event.request);
+      })
+  );
+});
