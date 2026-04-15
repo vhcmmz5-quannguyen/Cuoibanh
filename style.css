@@ -1,0 +1,251 @@
+/* =========================================================
+   HỆ THỐNG QUẢN TRỊ - STYLE.CSS (BẢN ĐỒNG BỘ MỚI NHẤT)
+   PHẦN 1/4: BIẾN MÀU SẮC, BỐ CỤC & SIDEBAR
+========================================================= */
+
+:root { 
+    --pink: #ff4d94; --soft: #ffeef2; --white: #ffffff;
+    --bg: #fffcfd; --card: #ffffff; --text: #111111; --text-light: #555555; --border: #eeeeee;
+}
+[data-theme="dark"] {
+    --pink: #ff4d94; --soft: #2a1620; --white: #1e1e1e;
+    --bg: #121212; --card: #1e1e1e; --text: #f1f1f1; --text-light: #aaaaaa; --border: #333333;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
+body { background: var(--bg); color: var(--text); overflow: hidden; width: 100vw; height: 100dvh; }
+
+.hidden { display: none !important; }
+.flex-center { display: flex; justify-content: center; align-items: center; flex-direction: column; }
+.flex-between { display: flex; justify-content: space-between; align-items: center; }
+
+.shadow-lux { box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); transition: 0.3s; }
+[data-theme="dark"] .shadow-lux { box-shadow: 0 5px 20px rgba(255, 77, 148, 0.1); }
+
+/* Bố cục Màn hình & Header */
+.full-screen { position: fixed; inset: 0; z-index: 9999; }
+.main-layout { display: flex; flex-direction: column; height: 100dvh; }
+.top-bar { height: 60px; background: var(--card); display: flex; justify-content: space-between; align-items: center; padding: 0 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); z-index: 10; }
+.header-left { display: flex; align-items: center; gap: 10px; }
+.boss-info h2 { font-size: 16px; color: var(--pink); margin-bottom: 2px; }
+.boss-info span { font-size: 11px; background: var(--soft); color: var(--pink); padding: 2px 6px; border-radius: 10px; font-weight: bold; display: inline-block;}
+.avt-circle { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 2px solid var(--pink); cursor: pointer; }
+.content-area { flex: 1; overflow-y: auto; padding: 15px; position: relative; }
+.tab-pane { animation: fadeIn 0.3s ease; }
+
+/* Menu Trượt (Sidebar) */
+.sidebar-right { position: fixed; top: 0; right: -300px; width: 280px; height: 100dvh; background: var(--card); box-shadow: -5px 0 20px rgba(0,0,0,0.1); transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1); z-index: 10000; overflow-y: auto; }
+.side-nav { padding: 15px; display: flex; flex-direction: column; gap: 10px; }
+.nav-btn { background: transparent; border: 1px solid var(--border); padding: 12px 15px; text-align: left; border-radius: 10px; font-weight: bold; color: var(--text); transition: 0.2s; cursor: pointer; }
+.nav-btn.active { background: var(--soft); border-color: var(--pink); color: var(--pink); }
+/* =========================================================
+   PHẦN 2/4: NÚT BẤM, KHUNG NHẬP LIỆU & BẢNG BIỂU
+========================================================= */
+
+/* Thẻ Card chung */
+.card { background: var(--card); border-radius: 20px; padding: 15px; border: 1px solid var(--border); margin-bottom: 15px; }
+
+/* Hệ thống Nút bấm xịn sò */
+.btn-royal { 
+    background: var(--pink); color: white; border: none; padding: 12px 20px; 
+    border-radius: 12px; font-weight: 900; cursor: pointer; width: 100%; 
+    transition: 0.3s; text-transform: uppercase; letter-spacing: 1px;
+    box-shadow: 0 4px 15px rgba(255, 77, 148, 0.2);
+}
+.btn-royal:active { transform: scale(0.95); }
+.btn-royal:hover { filter: brightness(1.1); }
+.btn-royal:disabled { background: var(--border) !important; color: var(--text-light) !important; cursor: not-allowed; box-shadow: none; }
+
+.btn-text { background: none; border: none; color: var(--text-light); padding: 10px; width: 100%; font-weight: bold; cursor: pointer; }
+
+/* Khung nhập liệu (Input & Textarea) */
+input, select, textarea { 
+    width: 100%; padding: 12px 15px; border-radius: 12px; 
+    border: 1px solid var(--border); background: var(--bg); 
+    color: var(--text); outline: none; margin-bottom: 10px; transition: 0.3s;
+}
+input:focus, textarea:focus { border-color: var(--pink); box-shadow: 0 0 10px rgba(255, 77, 148, 0.1); }
+
+/* Bảng điểm tổng hợp (Tối ưu Mobile) */
+.table-frame { width: 100%; border-radius: 15px; overflow: hidden; border: 1px solid var(--border); }
+.scroll-x { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+.master-table { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 600px; }
+.master-table th { background: var(--pink); color: white; padding: 10px; border: 1px solid rgba(255,255,255,0.1); }
+.master-table td { padding: 10px; text-align: center; border: 1px solid var(--border); background: var(--card); }
+
+/* Cột Họ Tên dính chặt khi vuốt ngang */
+.sticky-col { 
+    position: sticky; left: 0; z-index: 5; 
+    background: var(--card) !important; border-right: 2px solid var(--pink) !important;
+    min-width: 120px; white-space: nowrap; text-align: left !important;
+}
+
+/* Công tắc Gạt (Switch) */
+.switch { position: relative; display: inline-block; width: 46px; height: 24px; }
+.switch input { opacity: 0; width: 0; height: 0; }
+.slider { position: absolute; cursor: pointer; inset: 0; background-color: #ccc; transition: .4s; border-radius: 34px; }
+.slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; background-color: white; transition: .4s; border-radius: 50%; }
+input:checked + .slider { background-color: var(--pink); }
+input:checked + .slider:before { transform: translateX(22px); }
+
+/* Hiệu ứng nhịp đập cho nút quan trọng */
+.anim-pulse { animation: pulse 2s infinite; }
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(255, 77, 148, 0.4); }
+    70% { box-shadow: 0 0 0 15px rgba(255, 77, 148, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 77, 148, 0); }
+}
+/* =========================================================
+   PHẦN 3/4: GIAO DIỆN CHAT, DANH BẠ MESSENGER & NUÔI PET
+========================================================= */
+
+/* Khung hiển thị Tin nhắn */
+.chat-box { 
+    height: calc(100dvh - 280px); /* Tự động co giãn theo chiều cao điện thoại */
+    overflow-y: auto; 
+    padding: 10px; 
+    background: var(--bg); 
+    border-radius: 15px; 
+    border: 1px solid var(--border); 
+    margin-bottom: 10px;
+    scroll-behavior: smooth;
+}
+
+/* Vùng nhập tin nhắn (Dính chặt đáy) */
+.chat-input-zone { 
+    display: flex; gap: 10px; align-items: center; 
+    background: var(--card); padding: 10px; 
+    border-radius: 15px; border: 1px solid var(--border);
+}
+.chat-input-zone input { margin-bottom: 0; border: none; background: var(--soft); flex: 1; }
+
+.btn-send { 
+    background: var(--pink); color: white; border: none; 
+    width: 45px; height: 45px; border-radius: 50%; 
+    display: flex; justify-content: center; align-items: center; 
+    font-size: 18px; cursor: pointer; transition: 0.2s; flex-shrink: 0;
+}
+.btn-send:active { transform: scale(0.9); }
+.btn-img { background: var(--border); color: var(--text); }
+
+/* Danh bạ Chat thả dọc (Kiểu Messenger) */
+.tt-item { 
+    display: flex; align-items: center; gap: 15px; padding: 12px; 
+    border-bottom: 1px solid var(--border); cursor: pointer; transition: 0.2s; 
+}
+.tt-item:last-child { border-bottom: none; }
+.tt-item:hover { background: var(--soft); border-radius: 10px; }
+.tt-avt { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; border: 1px solid var(--border); flex-shrink: 0; }
+.tt-info { flex: 1; overflow: hidden; }
+.tt-name { font-weight: bold; font-size: 15px; color: var(--text); margin-bottom: 3px; display: flex; justify-content: space-between; align-items: center; }
+.tt-preview { font-size: 12px; color: var(--text-light); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* Nhãn Chuỗi Lửa (Streak) */
+.tt-streak { color: #FF9800; font-weight: 900; font-size: 12px; background: #fff3e0; padding: 2px 8px; border-radius: 10px; }
+
+/* Danh bạ Online cuộn ngang (Top Messenger) */
+.tt-top-scroll { 
+    display: flex; gap: 15px; overflow-x: auto; padding: 10px 5px; 
+    border-bottom: 1px solid var(--border); margin-bottom: 10px; 
+    scroll-snap-type: x mandatory;
+}
+.tt-top-scroll::-webkit-scrollbar { display: none; } /* Ẩn thanh cuộn xấu xí */
+.tt-top-item { display: flex; flex-direction: column; align-items: center; gap: 5px; cursor: pointer; min-width: 60px; scroll-snap-align: start; }
+.tt-top-avt { width: 55px; height: 55px; border-radius: 50%; object-fit: cover; }
+.tt-top-name { font-size: 11px; font-weight: bold; color: var(--text-light); text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 60px; }
+
+/* Thanh Tiến trình Nuôi Pet */
+.pet-progress-container { width: 100%; height: 20px; background: var(--border); border-radius: 10px; overflow: hidden; position: relative; margin-top: 10px; box-shadow: inset 0 2px 5px rgba(0,0,0,0.1); }
+.pet-progress-bar { height: 100%; background: linear-gradient(90deg, #FF9800, #ffeb3b); width: 0%; transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+.pet-progress-text { position: absolute; inset: 0; display: flex; justify-content: center; align-items: center; font-size: 10px; font-weight: 900; color: #333; text-shadow: 0 0 3px white; }
+/* =========================================================
+   PHẦN 4/4: MODAL (POPUP), MÀN HÌNH CHỜ, BẢO TRÌ & TOAST
+========================================================= */
+
+/* Lớp phủ tối đằng sau Modal */
+.overlay-dark { 
+    position: fixed; inset: 0; 
+    background: rgba(0, 0, 0, 0.6); 
+    backdrop-filter: blur(5px); 
+    z-index: 100000; 
+}
+
+/* Hộp Modal (Cửa sổ Popup) */
+.modal-box { 
+    background: var(--card); 
+    width: 90%; max-width: 400px; 
+    border-radius: 25px; padding: 25px 20px; 
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2); 
+    position: relative;
+}
+
+/* Modal Xem Ảnh Full HD */
+.viewer-box { 
+    background: transparent; box-shadow: none; max-width: 100%; padding: 0; 
+}
+.viewer-box img { 
+    max-width: 90vw; max-height: 80vh; object-fit: contain; 
+    border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
+}
+
+/* Lưới (Grid) chia cột nhanh trong Modal */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+
+/* Tiêu đề Modal */
+.title-pink { 
+    color: var(--pink); margin-bottom: 15px; 
+    text-transform: uppercase; font-weight: 900; letter-spacing: 1px; text-align: center;
+}
+
+/* Hệ thống Thông báo nổi (Toast Message) */
+#custom-toast { 
+    position: fixed; top: -50px; left: 50%; transform: translateX(-50%); 
+    background: var(--pink); color: white; padding: 12px 25px; 
+    border-radius: 30px; font-weight: bold; font-size: 14px; 
+    box-shadow: 0 5px 20px rgba(0,0,0,0.3); z-index: 999999; 
+    transition: top 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); /* Hiệu ứng nảy mượt */
+    white-space: nowrap; max-width: 90vw; overflow: hidden; text-overflow: ellipsis;
+}
+
+/* Màn hình Chờ Khởi động (Splash Screen) */
+#splash-screen { 
+    background: var(--card); display: flex; flex-direction: column; 
+    justify-content: center; align-items: center; z-index: 100000; 
+}
+.spinner { 
+    width: 50px; height: 50px; border: 5px solid var(--soft); 
+    border-top: 5px solid var(--pink); border-radius: 50%; 
+    animation: spin 1s linear infinite; margin: 20px auto; 
+}
+
+/* Màn hình Đăng nhập */
+#login-screen { 
+    background: linear-gradient(135deg, var(--soft) 0%, var(--card) 100%); 
+    display: flex; justify-content: center; align-items: center; z-index: 90000; 
+}
+.login-box { 
+    width: 90%; max-width: 350px; background: var(--card); 
+    padding: 30px 25px; border-radius: 30px; 
+    text-align: center; border: 1px solid var(--border);
+}
+
+/* Màn hình Bảo trì Hệ thống */
+#maintenance-screen { 
+    background: var(--card); z-index: 100000; 
+    display: flex; flex-direction: column; justify-content: center; 
+    align-items: center; padding: 20px; text-align: center; 
+}
+
+/* Các hiệu ứng Animation (Động) */
+.fade-in { animation: fadeIn 0.3s ease; }
+
+@keyframes fadeIn { 
+    from { opacity: 0; transform: translateY(10px) scale(0.98); } 
+    to { opacity: 1; transform: translateY(0) scale(1); } 
+}
+@keyframes spin { 
+    0% { transform: rotate(0deg); } 
+    100% { transform: rotate(360deg); } 
+}
